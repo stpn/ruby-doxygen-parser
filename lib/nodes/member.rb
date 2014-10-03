@@ -8,6 +8,12 @@ module Doxyparser
     attr_reader :type
     attr_reader :static
     attr_reader :params
+    
+    # Brief description
+    attr_reader :brief_description
+
+    # Brief description
+    attr_reader :detailed_description
 
 		# @return [HFile] header file where the declaration of this member was done
     def file
@@ -44,6 +50,21 @@ module Doxyparser
       end
       @type = find_type(@node)
 
+
+      briefd_temp = @node.xpath("briefdescription")
+      if briefd_temp.nil? || briefd_temp.empty?
+        @briefdescription = ''
+      else
+        @briefdescription =  briefd_temp[0].content
+      end
+
+      detailedd_temp = @node.xpath("detaileddescription")
+      if detailedd_temp.nil? || detailedd_temp.empty?
+        detaileddescription = ''
+      else
+        @detaileddescription =  detailedd_temp[0].content
+      end
+
       @params = []
       all_params = self.xpath("param")
       return if all_params == nil || all_params.empty? || all_params[0].child==nil
@@ -51,6 +72,8 @@ module Doxyparser
       all_params.each { |param|
         @params << Doxyparser::Param.new(node: param, parent: self, name: 'param')
       }
+
+
     end
 
     def find_name

@@ -172,6 +172,8 @@ module Doxyparser
    	attr_reader :file
   	attr_reader :friends
   	attr_reader :template_params
+    attr_reader :brief_description
+    attr_reader :detailed_description
 
     private
     
@@ -232,12 +234,16 @@ module Doxyparser
   		@file = init_file
   		@friends = init_friends
   		@template_params = init_template_params
+      @brief_description = init_brief_description
+      @detailed_description = init_detailed_description
+      @stuff = init_stuff
   	end
 
     def init_file
       n = doc.xpath("/doxygen/compounddef/includes")[0]
       return n ? HFile.new(dir: @dir, node: n) : nil 
     end
+
 
     def init_friends
       lst=doc.xpath(%Q{/doxygen/compounddef/sectiondef[@kind="friend"]/memberdef[@kind="friend"]})
@@ -252,5 +258,24 @@ module Doxyparser
         Doxyparser::Param.new(parent: self, node: param)
       }
     end
+
+    def init_brief_description      
+      result = ""
+      params=doc.xpath(%Q{/doxygen/compounddef/briefdescription})
+      if params && params.length >= 1
+        params.each{|par| result << result + par.content if par.content != ""}
+      end
+      result.strip
+    end
+
+    def init_detailed_description
+      result = ""
+      params=doc.xpath(%Q{/doxygen/compounddef/detaileddescription})
+      if params && params.length >= 1
+        params.each{|par|result << result + par.content if par.content != ""}
+      end
+      result.strip
+    end
+
   end
 end
