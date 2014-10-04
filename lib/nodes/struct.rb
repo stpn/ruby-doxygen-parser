@@ -236,7 +236,6 @@ module Doxyparser
   		@template_params = init_template_params
       @brief_description = init_brief_description
       @detailed_description = init_detailed_description
-      @stuff = init_stuff
   	end
 
     def init_file
