@@ -39,9 +39,9 @@ module Doxyparser
 
     def parse_file
       raise "No file found at this location: #{@xml_path} for node #{self.class.name} #{@name}" unless File.exists? @xml_path
-      File.open(@xml_path) { |xml_doc|
-        @doc=Nokogiri::XML(xml_doc)
-      }
+      
+        @doc=Nokogiri::XML(File.open(@xml_path))
+      
       self
     end
 
