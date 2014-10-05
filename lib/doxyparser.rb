@@ -2,6 +2,7 @@ require "rubygems"
 
 require 'nokogiri'
 require 'fileutils'
+require 'github_api'
 
 require_relative 'util'
 require_relative 'nodes/node'
@@ -24,6 +25,8 @@ require_relative 'nodes/variable'
 module Doxyparser
 
   class << self
+
+
   	
   	# Retrieves metadata for a given Namespace
     # @param basename [String] Name of the namespace to parse (for instance: NamespaceA::NamespaceB)

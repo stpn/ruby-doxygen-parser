@@ -30,6 +30,7 @@ module Doxyparser
 
     # Takes a hash as input with following keys: :node, :parent, :dir, :name
     def initialize(hash)
+      puts hash
       @dir = hash[:dir]
       @name = hash[:name]
       if hash[:node] # If a reference to an xml declaration (node) is given

@@ -51,14 +51,14 @@ module Doxyparser
       @type = find_type(@node)
 
 
-      briefd_temp = @node.xpath("briefdescription")
+      briefd_temp = self.xpath("briefdescription")
       if briefd_temp.nil? || briefd_temp.empty?
         @briefdescription = ''
       else
         @briefdescription =  briefd_temp[0].content
       end
 
-      detailedd_temp = @node.xpath("detaileddescription")
+      detailedd_temp = self.xpath("detaileddescription")
       if detailedd_temp.nil? || detailedd_temp.empty?
         detaileddescription = ''
       else
