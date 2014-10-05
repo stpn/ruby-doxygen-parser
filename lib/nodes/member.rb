@@ -53,16 +53,16 @@ module Doxyparser
 
       briefd_temp = self.xpath("briefdescription")
       if briefd_temp.nil? || briefd_temp.empty?
-        @briefdescription = ''
+        @brief_description = ''
       else
-        @briefdescription =  briefd_temp[0].content
+        @brief_description =  briefd_temp[0].content
       end
 
       detailedd_temp = self.xpath("detaileddescription")
       if detailedd_temp.nil? || detailedd_temp.empty?
-        detaileddescription = ''
+        @detailed_description = ''
       else
-        @detaileddescription =  detailedd_temp[0].content
+        @detailed_description =  detailedd_temp[0].content
       end
 
       @params = []
