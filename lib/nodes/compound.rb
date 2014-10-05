@@ -30,7 +30,7 @@ module Doxyparser
     end
 
     def parse
-      if @dir['http'].nil?
+      if @dir.to_s['http'].nil?
         parse_file
       else
         parse_url
@@ -46,7 +46,7 @@ module Doxyparser
     end
 
     def parse_url
-      puts "parsing url"
+      puts "parsing url #{@xml_path}"
       require 'open-uri'
       @doc = Nokogiri::XML(open(@xml_path))
       self

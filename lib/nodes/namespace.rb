@@ -79,6 +79,7 @@ module Doxyparser
     def compute_path
       aux = escape_class_name(@name)
       @xml_path = %Q{#{@dir}/namespace#{aux}.xml}
+
     end
   end
 end
