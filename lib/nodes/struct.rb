@@ -285,7 +285,7 @@ module Doxyparser
         if label.content == self.name
           parent_refid = label.parent.xpath("childnode/@refid")
           if !parent_refid.empty?
-            result = inh.at_xpath("//node[@id=#{parent_refid}]/label").content.gsub(/\w+::/,"")
+            result = inh.at_xpath("//node[@id=#{parent_refid}]/label").content
             break
           end          
         end
