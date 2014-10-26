@@ -174,6 +174,7 @@ module Doxyparser
   	attr_reader :template_params
     attr_reader :brief_description
     attr_reader :detailed_description
+    attr_reader :inheritance
 
     private
     
@@ -236,6 +237,7 @@ module Doxyparser
   		@template_params = init_template_params
       @brief_description = init_brief_description
       @detailed_description = init_detailed_description
+      @inheritance = init_inheritance
   	end
 
     def init_file
@@ -274,6 +276,21 @@ module Doxyparser
         params.each{|par|result << result + par.content if par.content != ""}
       end
       result.strip
+    end
+
+    def init_inheritance
+      result = nil
+      inh = doc.xpath(%Q{/doxygen/compounddef/inheritancegraph/node})      
+      inh.xpath("//inheritancegraph/node/label").each do |label|
+        if label.content == self.name
+          parent_refid = label.parent.xpath("childnode/@refid")
+          if !parent_refid.empty?
+            result = inh.at_xpath("//node[@id=#{parent_refid}]/label").content.gsub(/\w+::/,"")
+            break
+          end          
+        end
+      end
+      return result
     end
 
   end

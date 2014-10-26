@@ -5,7 +5,7 @@ module Doxyparser
 
     attr_reader :xml_path
 
-    private
+    #private
 
     def init_attributes
       super
